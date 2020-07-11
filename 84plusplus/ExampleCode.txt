@@ -1,0 +1,37 @@
+﻿//Rules
+//Strongly typed procedural langauge, compiled to Ti-Basic
+//    a. number (alias for floats in ti basic)
+//    b. string but only 10 allowed, (alias for strings in ti basic)
+//    c. allows using Ti-Basic functions
+//
+//Syntax:
+//    a. Function: method
+//    b. Type: (number, string)
+//    c. Variables: (string|number) (identifier) [ = (value)];
+//    d. Keywords: ()
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+using otherprogram;  //is this actually hard??
+
+void main()
+{
+    number hi = multiply(1, -2.345345);
+    string hi2 = "hello boi";
+    number x = 3+5;
+    x *= 3;
+    x+=           2;
+    x-=-1;
+
+    DISP(hello); //allow use of Ti-Basic commands
+}
+
+number multiply(number a, number b)
+{
+    return a * b;
+}
+
+string getValue()
+{
+    return "hi";
+}
