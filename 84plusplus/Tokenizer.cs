@@ -7,13 +7,15 @@ namespace Tokenizer
 {
     class Tokenizer
     {
-        Dictionary<SpecificTokenType, Func<string, SpecificTokenType>> specificTokenizer;
         Dictionary<TokenType, Regex> regexes;
-        public Tokenizer(Dictionary<TokenType, Regex> regexes, Dictionary<SpecificTokenType, Func<string, SpecificTokenType>> specificTokenizer)
+        private Func<TokenType, string, SpecificTokenType> specificTokenizer;
+
+        public Tokenizer(Dictionary<TokenType, Regex> regexes, Func<TokenType, string, SpecificTokenType> specificTokenizer)
         {
             this.regexes = regexes;
             this.specificTokenizer = specificTokenizer;
         }
+
         public List<Token> Tokenize(ReadOnlySpan<char> input)
         {
             List<Token> output = new List<Token>();
@@ -48,7 +50,9 @@ namespace Tokenizer
                             int x = 1;
                         }
 
-                        output.Add(new Token((TokenType)j, match.Value));
+                        var newToken = new Token((TokenType)j, match.Value);
+                        newToken.SpecificTokenType = specificTokenizer(newToken.TokenType, newToken.Lexeme);
+                        output.Add(newToken);
                         currentPos += match.Value.Length - 1;
                         break;
                     }

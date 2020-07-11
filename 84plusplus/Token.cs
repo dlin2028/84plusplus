@@ -50,10 +50,12 @@ namespace Tokenizer
         BitShiftLeft,
         BitShiftRight,
         Add,
-        Subtract,
+        Minus,
         Multiply,
         Divide,
         Modulo,
+        LogicalAnd,
+        LogicalOr,
         And,
         Or,
         Xor,
@@ -65,7 +67,6 @@ namespace Tokenizer
         LessThanOrEqualTo,
         
         Equals,
-
         //Constant
         StringConstant,
         NumberConstant,
