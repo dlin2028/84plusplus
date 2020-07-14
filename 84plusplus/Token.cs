@@ -87,7 +87,7 @@ namespace Tokenizer
     }
 
     
-    class Token
+    public class Token
     {
         public TokenType TokenType;
         public SpecificTokenType SpecificTokenType;
