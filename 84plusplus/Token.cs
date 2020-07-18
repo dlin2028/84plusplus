@@ -10,8 +10,7 @@ namespace Tokenizer
         Keyword,
         Identifier,
         Operator,
-        StringConstant,
-        NumberConstant,
+        Constant,
         Special
     };
 
@@ -24,6 +23,8 @@ namespace Tokenizer
         //keyword
         Number,
         String,
+        Array,
+        Matrix,
         If,
         Else,
         For,
@@ -44,16 +45,15 @@ namespace Tokenizer
         AndEquals,
         OrEquals,
         XorEquals,
-        Increment,
-        Decrement,
 
-        BitShiftLeft,
-        BitShiftRight,
+        //binary operator
         Add,
         Minus,
         Multiply,
         Divide,
         Modulo,
+        BitShiftLeft,
+        BitShiftRight,
         LogicalAnd,
         LogicalOr,
         And,
@@ -65,8 +65,20 @@ namespace Tokenizer
         GreaterThan,
         GreaterThanOrEqualTo,
         LessThanOrEqualTo,
-        
+
+        //unary operator
+        Increment,
+        Decrement,
+
         Equals,
+
+
+        //Special
+        LeftParenthesis,
+        RightParenthesis,
+
+        //Identifier
+        Identifier,
         //Constant
         StringConstant,
         NumberConstant,
@@ -76,14 +88,10 @@ namespace Tokenizer
         RightCurlyBrace,
         LeftBracket,
         RightBracket,
-        LeftParenthesis,
-        RightParenthesis,
 
         Comma,
         SemiColon,
 
-        //Identifier
-        Identifier
     }
 
     

@@ -15,10 +15,9 @@ namespace Tokenizer
             regexes = new Dictionary<TokenType, Regex>();
             //THE ORDER HERE DOES NOT MATTER!!!!!!!!!!!!!!!!!!!!!!!!!!!
             regexes.Add(TokenType.Comment, new Regex(@"\/\*([^*]|\*+[^\/])*\*+\/|\/\/.*$"));
-            regexes.Add(TokenType.Keyword, new Regex("(number|string|if|else|for|static|return|while|void|using)"));
+            regexes.Add(TokenType.Keyword, new Regex("(number|string|matrix|list|if|else|for|static|return|while|void|using)"));
             regexes.Add(TokenType.Operator, new Regex(@"(<<|>>|\+|-|\*|\/|%|&|\||\^|<|>)=|(\|\||&&|<<|>>|--|\+\+|->|==)|(\%|\&|\+|\-|\=|\/|\||\*|\:|>|<|\!|~|\^)"));
-            regexes.Add(TokenType.StringConstant, new Regex(@"""(?:\\.|[^""\\])*"""));
-            regexes.Add(TokenType.NumberConstant, new Regex(@"^[+-]?(\d*\.)?\d+"));
+            regexes.Add(TokenType.Constant, new Regex(@"([""'])(?:(?=(\\?))\2.)*?\1|(^[+-]?(\d*\.)?\d+)"));
             regexes.Add(TokenType.Special, new Regex(@"[;(){}\[\],]"));
             regexes.Add(TokenType.Identifier, new Regex(@"[_a-zA-Z][_a-zA-Z0-9]{0,30}"));
 
@@ -38,6 +37,10 @@ namespace Tokenizer
                             case "number":
                                 return SpecificTokenType.Number;
                             case "string":
+                                return SpecificTokenType.String;
+                            case "matrix":
+                                return SpecificTokenType.String;
+                            case "list":
                                 return SpecificTokenType.String;
                             case "if":
                                 return SpecificTokenType.If;
@@ -128,10 +131,11 @@ namespace Tokenizer
                                 break;
                         }
                         break;
-                    case TokenType.StringConstant:
-                        return SpecificTokenType.StringConstant;
-                    case TokenType.NumberConstant:
-                        return SpecificTokenType.NumberConstant;
+                    case TokenType.Constant:
+                        if (s.StartsWith("\""))
+                            return SpecificTokenType.StringConstant;
+                        else
+                            return SpecificTokenType.NumberConstant;
                     case TokenType.Special:
                         switch (s)
                         {
