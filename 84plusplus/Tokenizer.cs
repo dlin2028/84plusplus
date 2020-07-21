@@ -164,7 +164,7 @@ namespace Tokenizer
             };
         }
 
-        public List<Token> Tokenize(ReadOnlySpan<char> input)
+        public List<Token> Tokenize(ReadOnlySpan<char> input) //this is terrible and needs to be rewritten
         {
             List<Token> output = new List<Token>();
             int currentPos = 0;
@@ -184,7 +184,7 @@ namespace Tokenizer
                 }
                 else
                 {
-                    curr = curr.Slice(0);
+                    curr = curr.Slice(0); //what am i even doing here
                 }
 
                 for (int j = 0; j < regexes.Count; j++)
