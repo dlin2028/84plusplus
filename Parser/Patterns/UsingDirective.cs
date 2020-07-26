@@ -7,7 +7,7 @@ namespace Parser.Patterns
 {
     class UsingDirective : SyntaxNode, IPattern
     {
-        public static bool TryMatch(ReadOnlySpan<Token> tokens, ref int count, out SyntaxNode result)
+        public static bool TryMatch(ReadOnlySpan<Token> tokens, out SyntaxNode result)
         {
             int oldCount = count;
 

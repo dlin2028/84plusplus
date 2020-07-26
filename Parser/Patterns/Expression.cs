@@ -14,12 +14,13 @@ namespace Parser
         {
             Token = token;
         }
-        public Expression(ReadOnlySpan<Token> tokens, ref int count)
+        public Expression(ReadOnlySpan<Token> tokens)
         {
-            Value = (Value)expr(tokens, ref count);
+            Value = (Value)expr(tokens);
         }
 
-        private Expression expr(ReadOnlySpan<Token> tokens, ref int count, int precedence = 0)
+        private int count = 0;
+        protected Expression expr(ReadOnlySpan<Token> tokens, int precedence = 0)
         {
             if (precedence == (int)SpecificTokenType.RightParenthesis)
             {
@@ -28,15 +29,15 @@ namespace Parser
             else if (tokens[count].SpecificTokenType == SpecificTokenType.LeftParenthesis)
             {
                 count++;
-                return expr(tokens, ref count);
+                return expr(tokens);
             }
 
-            var result = expr(tokens, ref count, precedence + 1);
+            var result = expr(tokens, precedence + 1);
             while (count < tokens.Length - 1 && tokens[count].SpecificTokenType == (SpecificTokenType)precedence)
             {
                 OperatorExpression parent = new OperatorExpression(tokens[count++]);
                 parent.Left = result;
-                parent.Right = expr(tokens, ref count, precedence + 1);
+                parent.Right = expr(tokens, precedence + 1);
                 result = parent;
             }
             return result;
@@ -44,6 +45,8 @@ namespace Parser
     }
     class Value : Expression
     {
+        public Expression Left { get { return (Expression)Children[0]; } set { Children[0] = value; } }
+        public Expression Right { get { return (Expression)Children[1]; } set { Children[1] = value; } }
         public Value(Token token) : base(token)
         {
         }

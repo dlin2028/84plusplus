@@ -18,7 +18,7 @@ void main()
 {
     number hi = multiply(1, -2.345345);
     string hi2 = "hello boi";
-    number x = 3+5;
+    static number x = 3+5;
     x *= 3;
     x+=           2;
     x-=-1;

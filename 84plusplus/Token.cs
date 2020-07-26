@@ -6,6 +6,8 @@ namespace Tokenizer
 {
     public enum TokenType
     {
+        Equation = -1,
+        None,
         Comment,
         Keyword,
         Identifier,
@@ -16,14 +18,15 @@ namespace Tokenizer
 
     public enum SpecificTokenType
     {
+        None = 0,
         //comment
-        LineComment,
+        LineComment = 7,
         BlockComment,
 
         //keyword
         Number,
         String,
-        Array,
+        List,
         Matrix,
         If,
         Else,
@@ -91,7 +94,6 @@ namespace Tokenizer
 
         Comma,
         SemiColon,
-
     }
 
     

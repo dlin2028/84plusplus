@@ -10,10 +10,8 @@ namespace Parser
         public Token TypeToken;
         public SyntaxNode Declarator;
 
-        public static void IsMatch(ReadOnlySpan<Token> tokens, ref int count)
+        public static int IsMatch(ReadOnlySpan<Token> tokens)
         {
-            int oldCount = count;
-
             var declaration = new VariableDeclaration();
             if (tokens[count].SpecificTokenType >= SpecificTokenType.Number && tokens[count].SpecificTokenType <= SpecificTokenType.Matrix)
             {
@@ -22,7 +20,7 @@ namespace Parser
                 {
                     var declarator = new VariableDeclarator();
                     count++;
-                    declarator.Expression = new Expression(tokens, ref count);
+                    declarator.Expression = new Expression(tokens);
                     declaration.Declarator = declarator;
                 }
                 else
