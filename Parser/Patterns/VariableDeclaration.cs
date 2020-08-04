@@ -8,27 +8,14 @@ namespace Parser
     class VariableDeclaration : SyntaxNode
     {
         public Token TypeToken;
-        public SyntaxNode Declarator;
+        public VariableDeclarator Declarator;
 
-        public static int IsMatch(ReadOnlySpan<Token> tokens)
+        public VariableDeclaration(Stack<Token> tokens)
         {
-            var declaration = new VariableDeclaration();
-            if (tokens[count].SpecificTokenType >= SpecificTokenType.Number && tokens[count].SpecificTokenType <= SpecificTokenType.Matrix)
-            {
-                declaration.TypeToken = tokens[count++];
-                if (tokens[count].SpecificTokenType == SpecificTokenType.Equals)
-                {
-                    var declarator = new VariableDeclarator();
-                    count++;
-                    declarator.Expression = new Expression(tokens);
-                    declaration.Declarator = declarator;
-                }
-                else
-                {
-                    declaration.Declarator = new InvalidTokenNode(tokens[count++]);
-                }
-                return declaration;
-            }
+            int count = 0;
+            TypeToken = tokens.Pop();
+            count++; //the equals
+            Declarator.Expression = new Expression(tokens);
         }
     }
     class VariableDeclarator : SyntaxNode

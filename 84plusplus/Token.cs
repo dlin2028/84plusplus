@@ -6,7 +6,7 @@ namespace Tokenizer
 {
     public enum TokenType
     {
-        Equation = -1,
+        Expression = -1,
         None,
         Comment,
         Keyword,

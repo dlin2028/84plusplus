@@ -11,6 +11,7 @@ namespace Tokenizer
         static void Main(string[] args)
         {
             ReadOnlySpan<char> input = File.ReadAllText(@"ExampleCode.txt").AsSpan();
+            //ReadOnlySpan<char> input = "using blah;".AsSpan();
 
             Tokenizer tokenizer = new Tokenizer();//, specificTokenizer); trust me i know what im doing
 

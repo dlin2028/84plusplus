@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parser.Patterns;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Tokenizer;
@@ -10,6 +11,11 @@ namespace Parser
         public ParameterList ParameterList;
         public ReturnType ReturnType;
         public Body Body;
+
+        public FunctionDeclaration()
+        {
+
+        }
     }
     class ParameterList : SyntaxNode
     {
@@ -23,9 +29,5 @@ namespace Parser
     class ReturnType : SyntaxNode
     {
         public Token Keyword;
-    }
-    class Body : SyntaxNode
-    {
-        
     }
 }

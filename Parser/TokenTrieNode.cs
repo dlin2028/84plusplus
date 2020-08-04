@@ -23,23 +23,27 @@ namespace Parser
         public TokenType TokenType => (TokenType)token;
         public SpecificTokenType SpecificTokenType => (SpecificTokenType)token;
 
-        public Func<List<Token>, SyntaxNode> Value;
+        public Func<Stack<Token>, SyntaxNode> Value;
         public Dictionary<int, TokenTrieNode> Children;
 
-        public TokenTrieNode(Func<List<Token>, SyntaxNode> value)
+        public TokenTrieNode(Func<Stack<Token>, SyntaxNode> value)
         {
+            Children = new Dictionary<int, TokenTrieNode>();
             Value = value;
         }
         public TokenTrieNode(int token)
         {
+            Children = new Dictionary<int, TokenTrieNode>();
             this.token = token;
         }
         public TokenTrieNode(TokenType tokenType)
         {
+            Children = new Dictionary<int, TokenTrieNode>();
             token = (int)tokenType;
         }
         public TokenTrieNode(SpecificTokenType specificTokenType)
         {
+            Children = new Dictionary<int, TokenTrieNode>();
             token = (int)specificTokenType;
         }
         public bool IsMatch(SpecificTokenType specificTokenType)

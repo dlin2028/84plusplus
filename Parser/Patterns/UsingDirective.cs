@@ -5,33 +5,17 @@ using Tokenizer;
 
 namespace Parser.Patterns
 {
-    class UsingDirective : SyntaxNode, IPattern
+    class UsingDirective : SyntaxNode
     {
-        public static bool TryMatch(ReadOnlySpan<Token> tokens, out SyntaxNode result)
+
+        public UsingDirective(Stack<Token> tokens)
         {
-            int oldCount = count;
-
-            result = new UsingDirective();
-            if (tokens[count].SpecificTokenType == SpecificTokenType.Using)
+            int count = 1;
+            while (tokens.Peek().SpecificTokenType != SpecificTokenType.SemiColon)
             {
-                bool containsIdentifier = false;
-                while (tokens[count].SpecificTokenType != SpecificTokenType.SemiColon)
-                {
-                    if (tokens[count].TokenType == TokenType.Identifier)
-                        containsIdentifier = true;
-                    else if (tokens[count].TokenType != TokenType.Comment)
-                    {
-                        count = oldCount;
-                        return false;
-                    }
-
-                    result.Children.Add(new TokenNode(tokens[count++]));
-                }
-                result.Children.Add(new TokenNode(tokens[count++]));
-                return containsIdentifier;
+                Children.Add(new TokenNode(tokens.Pop()));
             }
-            count = oldCount;
-            return false;
+            Children.Add(new TokenNode(tokens.Peek()));
         }
     }
 }

@@ -6,7 +6,7 @@ using Tokenizer;
 
 namespace Parser
 {
-    class SyntaxTree
+    public class SyntaxTree
     {
         public SyntaxNode Head;
         public SyntaxTree()

@@ -23,6 +23,12 @@ void main()
     x+=           2;
     x-=-1;
 
+    if(thing)
+    {
+        
+    }
+    else
+    {}
     DISP(hello); //allow use of Ti-Basic commands
 }
 

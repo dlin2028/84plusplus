@@ -187,7 +187,7 @@ namespace Tokenizer
                     curr = curr.Slice(0); //what am i even doing here
                 }
 
-                for (int j = 0; j < regexes.Count; j++)
+                for (int j = 1; j <= regexes.Count; j++)
                 {
                     var match = regexes[(TokenType)j].Match(curr.ToString());
 

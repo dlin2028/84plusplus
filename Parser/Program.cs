@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Parser.Patterns;
+using System;
 using System.Collections.Generic;
 using Tokenizer;
 
@@ -8,24 +9,52 @@ namespace Parser
     {
         static void Main(string[] args)
         {
+
+
+
             Tokenizer.Tokenizer tokenizer = new Tokenizer.Tokenizer();
-            List<Token> tokens = tokenizer.Tokenize("a+b-c*d/e+f");
+            List<Token> tokens = tokenizer.Tokenize("using blah;".AsSpan());
 
             Parser parser = new Parser();
 
             List<Pattern> patterns = new List<Pattern>();
-            var arguments = new List<List<Token>>();
-            arguments.Add()
+            var arguments = new List<int[]>();
 
-            patterns.Add(new Pattern((t) => { return new VariableDeclaration(t); }, );
+            //number hi = expr;
+            arguments.Add(new int[]{ (int)SpecificTokenType.Number, (int)SpecificTokenType.String, (int)SpecificTokenType.List, (int)SpecificTokenType.Matrix });
+            arguments.Add(new int[] { (int)TokenType.Identifier });
+            arguments.Add(new int[] { (int)SpecificTokenType.Equals });
+            arguments.Add(new int[] { (int)TokenType.Expression });
+            arguments.Add(new int[] { (int)SpecificTokenType.SemiColon });
+            patterns.Add(new Pattern((t) => { return new VariableDeclaration(t); }, arguments));
+            arguments.Clear();
 
-            parser.GenerateTokenTrie(constructors, )
+            //number hello()
+            arguments.Add(new int[] { (int)SpecificTokenType.Number, (int)SpecificTokenType.String, (int)SpecificTokenType.List, (int)SpecificTokenType.Matrix });
+            arguments.Add(new int[] { (int)TokenType.Identifier });
+            arguments.Add(new int[] { (int)SpecificTokenType.LeftParenthesis });
+            arguments.Add(new int[] { (int)TokenType.Expression });
+            arguments.Add(new int[] { (int)SpecificTokenType.RightParenthesis });
+            patterns.Add(new Pattern((t) => { return new VariableDeclaration(t); }, arguments));
+            arguments.Clear();
 
-            var hi = parser.Parse(tokens.ToArray().AsSpan());
+            arguments.Add(new int[] { (int)SpecificTokenType.If}); //wow very epic
+            arguments.Add(new int[] { (int)SpecificTokenType.LeftParenthesis });
+            arguments.Add(new int[] { (int)TokenType.Expression });
+            arguments.Add(new int[] { (int)SpecificTokenType.RightParenthesis });
+            patterns.Add(new Pattern((t) => { return new VariableDeclaration(t); }, arguments));  //need to do :D
+            arguments.Clear();
 
-            //Console.WriteLine(hi.Eval());
 
-            //hi.PrintPretty();
+            arguments.Add(new int[] { (int)SpecificTokenType.Using }); //wow very epic
+            arguments.Add(new int[] { (int)TokenType.Identifier });
+            arguments.Add(new int[] { (int)SpecificTokenType.SemiColon });
+            patterns.Add(new Pattern((t) => { return new UsingDirective(t); }, arguments));
+            arguments.Clear();
+
+            var magicalParsedTree = parser.Parse(new Stack<Token>(tokens), patterns.ToArray());
+
+
         }
 
     }
