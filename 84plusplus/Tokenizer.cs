@@ -7,19 +7,21 @@ namespace Tokenizer
 {
     public class Tokenizer
     {
-        Dictionary<TokenType, Regex> regexes;
+        SortedList<TokenType, Regex> regexes;
         private Func<TokenType, string, SpecificTokenType> specificTokenizer;
 
         public Tokenizer()
         {
-            regexes = new Dictionary<TokenType, Regex>();
-            //THE ORDER HERE DOES NOT MATTER!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            regexes.Add(TokenType.Comment, new Regex(@"\/\*([^*]|\*+[^\/])*\*+\/|\/\/.*$"));
-            regexes.Add(TokenType.Keyword, new Regex("(number|string|matrix|list|if|else|for|static|return|while|void|using)"));
-            regexes.Add(TokenType.Operator, new Regex(@"(<<|>>|\+|-|\*|\/|%|&|\||\^|<|>)=|(\|\||&&|<<|>>|--|\+\+|->|==)|(\%|\&|\+|\-|\=|\/|\||\*|\:|>|<|\!|~|\^)"));
-            regexes.Add(TokenType.Constant, new Regex(@"([""'])(?:(?=(\\?))\2.)*?\1|(^[+-]?(\d*\.)?\d+)"));
-            regexes.Add(TokenType.Special, new Regex(@"[;(){}\[\],]"));
-            regexes.Add(TokenType.Identifier, new Regex(@"[_a-zA-Z][_a-zA-Z0-9]{0,30}"));
+            regexes = new SortedList<TokenType, Regex>();
+            regexes.Add(TokenType.Comment, new Regex(@"\G(\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\/)|\G(\/\/.*)", RegexOptions.Compiled));
+            regexes.Add(TokenType.Keyword, new Regex(@"\G(function|number|string|matrix|list|if|else|for|static|return|while|void|using)", RegexOptions.Compiled));
+            regexes.Add(TokenType.Operator, new Regex(@"\G(<<|>>|\+|-|\*|\/|%|&|\||\^|<|>)=|^(\|\||&&|<<|>>|--|\+\+|->|==)|\G(\%|\&|\+|\-|\=|\/|\||\*|\:|>|<|\!|~|\^)", RegexOptions.Compiled));
+            regexes.Add(TokenType.Constant, new Regex(@"\G([""'])(?:(?=(\\?))\2.)*?\1|(^[+-]?(\d*\.)?\d+)", RegexOptions.Compiled));
+            regexes.Add(TokenType.Special, new Regex(@"\G[;(){}\[\],]", RegexOptions.Compiled));
+            regexes.Add(TokenType.Identifier, new Regex(@"\G[_a-zA-Z][_a-zA-Z0-9]{0,30}", RegexOptions.Compiled));
+
+            #region dont
+            //AAH WHAT HAVE U DONE
 
             specificTokenizer = (t, s) =>
             {
@@ -34,6 +36,8 @@ namespace Tokenizer
                     case TokenType.Keyword:
                         switch (s)
                         {
+                            case "function":
+                                return SpecificTokenType.Function;
                             case "number":
                                 return SpecificTokenType.Number;
                             case "string":
@@ -162,45 +166,30 @@ namespace Tokenizer
                 }
                 return SpecificTokenType.Void;
             };
+            #endregion
         }
 
-        public List<Token> Tokenize(ReadOnlySpan<char> input) //this is terrible and needs to be rewritten
+        public List<Token> Tokenize(string input)
         {
             List<Token> output = new List<Token>();
             int currentPos = 0;
-            var curr = input;
 
             while(currentPos < input.Length)
             {
-                while (curr[0] == ' ')
+                foreach (var regex in regexes)
                 {
-                    curr = input.Slice(++currentPos);
-                }
-                 
-                var nIndex = curr.IndexOf('\n');
-                if(nIndex != -1)
-                {
-                    curr = curr.Slice(0, Math.Min(nIndex, curr.IndexOf(';')) + 1);
-                }
-                else
-                {
-                    curr = curr.Slice(0); //what am i even doing here
-                }
+                    var match = regex.Value.Match(input, currentPos);
 
-                for (int j = 1; j <= regexes.Count; j++)
-                {
-                    var match = regexes[(TokenType)j].Match(curr.ToString());
-
-                    if(match.Success && match.Index == 0) //this really needs to be optimized but i hate regex
+                    if (match.Success)
                     {
-                        var newToken = new Token((TokenType)j, match.Value);
+                        var newToken = new Token(regex.Key, match.Value);
                         newToken.SpecificTokenType = specificTokenizer(newToken.TokenType, newToken.Lexeme);
                         output.Add(newToken);
-                        currentPos += match.Value.Length - 1;
+                        currentPos += match.Value.Length;
                         break;
                     }
                 }
-                curr = input.Slice(++currentPos);
+                currentPos++;
             }
 
             return output;

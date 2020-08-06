@@ -10,10 +10,9 @@ namespace Tokenizer
     {
         static void Main(string[] args)
         {
-            ReadOnlySpan<char> input = File.ReadAllText(@"ExampleCode.txt").AsSpan();
-            //ReadOnlySpan<char> input = "using blah;".AsSpan();
+            string input = File.ReadAllText(@"ExampleCode.txt");
 
-            Tokenizer tokenizer = new Tokenizer();//, specificTokenizer); trust me i know what im doing
+            Tokenizer tokenizer = new Tokenizer();
 
             List<Token> tokens = tokenizer.Tokenize(input);
 

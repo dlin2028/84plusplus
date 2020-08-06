@@ -55,10 +55,6 @@
       <Project>{634B0316-524E-43B1-80FF-013F20F753B4}</Project>
       <Name>Tokenizer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Parser\Parser.csproj">
-      <Project>{0adff13a-5847-4e7a-a8c0-10ca1e9c1daf}</Project>
-      <Name>Parser</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

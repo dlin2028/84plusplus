@@ -36,6 +36,7 @@ namespace Tokenizer
         While,
         Void,
         Using,
+        Function,
 
         //operator
         BitShiftLeftEquals,

@@ -21,21 +21,22 @@ namespace Parser
             var arguments = new List<int[]>();
 
             //number hi = expr;
+            patterns.Add(new Pattern((t) => { return new VariableDeclaration(t); }, arguments));
             arguments.Add(new int[]{ (int)SpecificTokenType.Number, (int)SpecificTokenType.String, (int)SpecificTokenType.List, (int)SpecificTokenType.Matrix });
             arguments.Add(new int[] { (int)TokenType.Identifier });
             arguments.Add(new int[] { (int)SpecificTokenType.Equals });
             arguments.Add(new int[] { (int)TokenType.Expression });
             arguments.Add(new int[] { (int)SpecificTokenType.SemiColon });
-            patterns.Add(new Pattern((t) => { return new VariableDeclaration(t); }, arguments));
             arguments.Clear();
 
             //number hello()
+            patterns.Add(new Pattern((t) => { return new FunctionDeclaration(t); }, arguments));
+            arguments.Add(new int[] { (int)SpecificTokenType.Function});
             arguments.Add(new int[] { (int)SpecificTokenType.Number, (int)SpecificTokenType.String, (int)SpecificTokenType.List, (int)SpecificTokenType.Matrix });
             arguments.Add(new int[] { (int)TokenType.Identifier });
             arguments.Add(new int[] { (int)SpecificTokenType.LeftParenthesis });
             arguments.Add(new int[] { (int)TokenType.Expression });
             arguments.Add(new int[] { (int)SpecificTokenType.RightParenthesis });
-            patterns.Add(new Pattern((t) => { return new VariableDeclaration(t); }, arguments));
             arguments.Clear();
 
             arguments.Add(new int[] { (int)SpecificTokenType.If}); //wow very epic

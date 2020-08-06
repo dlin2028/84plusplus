@@ -14,7 +14,7 @@
 
 using otherprogram;  //is this actually hard??
 
-void main()
+function void main()
 {
     number hi = multiply(1, -2.345345);
     string hi2 = "hello boi";
@@ -25,19 +25,25 @@ void main()
 
     if(thing)
     {
+        while(thing)
+        {
         
+        }
     }
     else
-    {}
+    {
+        //screw for loops
+    }
+
     DISP(hello); //allow use of Ti-Basic commands
 }
 
-number multiply(number a, number b)
+function number multiply(number a, number b)
 {
     return a * b;
 }
 
-string getValue()
+function string getValue()
 {
     return "hi";
 }
