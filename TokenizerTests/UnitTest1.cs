@@ -14,7 +14,7 @@ namespace TokenizerTests
         public void InstantiationTests(string input, SpecificTokenType[] tokenArr)
         {
             Tokenizer.Tokenizer tokenizer = new Tokenizer.Tokenizer();
-            var tokens = tokenizer.Tokenize(input.AsSpan());
+            var tokens = tokenizer.Tokenize(input);
             Assert.Equal(tokens.Select(x => x.SpecificTokenType).ToArray(), tokenArr);
         }
 
@@ -23,7 +23,7 @@ namespace TokenizerTests
         public void MutationTests(string input, SpecificTokenType[] tokenArr)
         {
             Tokenizer.Tokenizer tokenizer = new Tokenizer.Tokenizer();
-            var tokens = tokenizer.Tokenize(input.AsSpan());
+            var tokens = tokenizer.Tokenize(input);
             Assert.Equal(tokens.Select(x => x.SpecificTokenType).ToArray(), tokenArr);
         }
     }

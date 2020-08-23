@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -108,6 +109,46 @@ namespace Tokenizer
         {
             TokenType = tokenType;
             Lexeme = lexeme;
+        }
+        public static bool operator ==(Token b1, TokenType b2)
+        {
+            return b1.Equals(b2);
+        }
+        public static bool operator !=(Token b1, TokenType b2)
+        {
+            return !(b1 == b2);
+        }
+        public static bool operator ==(Token b1, SpecificTokenType b2)
+        {
+            return b1.Equals(b2);
+        }
+        public static bool operator !=(Token b1, SpecificTokenType b2)
+        {
+            return !(b1 == b2);
+        }
+        public static bool operator ==(Token b1, Token b2)
+        {
+            if (b1 is null)
+                return b2 is null;
+
+            return b1.Equals(b2);
+        }
+        public static bool operator !=(Token b1, Token b2)
+        {
+            return !(b1 == b2);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var type = obj.GetType();
+            if (type == typeof(TokenType))
+                return TokenType == (TokenType)obj;
+            else if (type == typeof(SpecificTokenType))
+                return SpecificTokenType == (SpecificTokenType)obj;
+            else if (type == typeof(Token))
+                return SpecificTokenType == ((Token)obj).SpecificTokenType && TokenType == ((Token)obj).TokenType;
+            else
+                return false;
         }
     }
 }

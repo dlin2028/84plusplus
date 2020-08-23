@@ -7,7 +7,7 @@
 //Syntax:
 //    a. Function: method
 //    b. Type: (number, string)
-//    c. Variables: (string|number) (identifier) [ = (value)];
+//    c. Variables: (string|number|list|matrix) (identifier) [ = (value)];
 //    d. Keywords: ()
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
