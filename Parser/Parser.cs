@@ -15,19 +15,15 @@ namespace Parser
             var currToken = tokens.Peek();
             if(currToken == SpecificTokenType.Function)
             {
-
+                return new FunctionDeclaration(tokens);
             }
             else if(currToken == SpecificTokenType.Using)
             {
-
-            }
-            else if(currToken == SpecificTokenType.Static)
-            {
-
+                return new UsingDirective(tokens);
             }
             else if(currToken == SpecificTokenType.If)
             {
-
+                return new IfStatement(tokens);
             }
             else if(currToken == SpecificTokenType.While)
             {
@@ -48,6 +44,10 @@ namespace Parser
             else if (currToken == SpecificTokenType.Matrix)
             {
 
+            }
+            else
+            {
+                //panik
             }
         }
     }

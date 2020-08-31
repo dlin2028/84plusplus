@@ -7,12 +7,12 @@ using Tokenizer;
 
 namespace Parser
 {
-    class FunctionDeclaration
+    class FunctionDeclaration : SyntaxNode
     {
         public Token ReturnTypeToken;
         public Token IdentifierToken;
-        public SyntaxNode ParameterList;
-        public SyntaxNode Body;
+        public SyntaxNode ParameterList { get { return Children[0]; } set { Children[0] = value; } }
+        public SyntaxNode Body { get { return Children[1]; } set { Children[1] = value; } }
         public FunctionDeclaration(Stack<Token> tokens)
         {
             ReturnTypeToken = tokens.Pop();
