@@ -7,7 +7,7 @@ using Tokenizer;
 
 namespace Parser
 {
-    class ExpressionNode : SyntaxNode
+    public class ExpressionNode : SyntaxNode
     {
         public ExpressionNode(Stack<Token> tokens)
         {

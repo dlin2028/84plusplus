@@ -7,7 +7,7 @@ using Tokenizer;
 
 namespace Parser
 {
-    class WhileStatement
+    class WhileStatement : SyntaxNode
     {
         public Token WhileToken;
         public Token OpenParenToken;

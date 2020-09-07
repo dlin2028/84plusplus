@@ -27,23 +27,23 @@ namespace Parser
             }
             else if(currToken == SpecificTokenType.While)
             {
-
+                return new WhileStatement(tokens);
             }
             else if(currToken == SpecificTokenType.Number)
             {
-
+                return new NumberDeclarationStatement(tokens);
             }
             else if(currToken == SpecificTokenType.String)
             {
-
+                return new StringDeclarationStatement(tokens);
             }
             else if (currToken == SpecificTokenType.List)
             {
-
+                return new ListDeclarationStatement(tokens);
             }
             else if (currToken == SpecificTokenType.Matrix)
             {
-
+                return new MatrixDeclarationStatement(tokens);
             }
             else
             {

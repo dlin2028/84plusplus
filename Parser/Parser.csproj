@@ -47,11 +47,13 @@
     <Compile Include="ExpressionNode.cs" />
     <Compile Include="FunctionDeclaration.cs" />
     <Compile Include="IfStatement.cs" />
+    <Compile Include="DeclarationStatement.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxNode.cs" />
     <Compile Include="UsingDirective.cs" />
+    <Compile Include="WhileStatement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
